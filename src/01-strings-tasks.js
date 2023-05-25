@@ -202,8 +202,34 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  if (!width || !height) return 0;
+  const corners = {
+    leftTop: '┌',
+    rightTop: '┐\n',
+    rightBottom: '┘\n',
+    leftBottom: '└',
+  };
+  let rectangle = [];
+  const {
+    leftTop, rightTop, rightBottom, leftBottom,
+  } = corners;
+  for (let row = 0; row < height; row += 1) {
+    rectangle[row] = [];
+    for (let column = 0; column < width; column += 1) {
+      rectangle[row][column] = ' ';
+      if (row === 0 || row === height - 1) rectangle[row][column] = '─';
+      if (column === 0) rectangle[row][column] = '│';
+      if (column === width - 1) rectangle[row][column] = '│\n';
+      if (column === row && row === 0) rectangle[row][column] = leftTop;
+      if (column === width - 1 && row === 0) rectangle[row][column] = rightTop;
+      if (column === 0 && row === height - 1) rectangle[row][column] = leftBottom;
+      if (column === width - 1 && row === height - 1) rectangle[row][column] = rightBottom;
+    }
+    rectangle[row] = rectangle[row].join('');
+  }
+  rectangle = rectangle.join('');
+  return rectangle;
 }
 
 
