@@ -125,8 +125,19 @@ function isTriangle(a, b, c, i = 0) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const calcRight = (rect) => rect.left + rect.width;
+  const calcBottom = (rect) => rect.top + rect.height;
+  const rect1Right = calcRight(rect1);
+  const rect1Bottom = calcBottom(rect1);
+  const rect2Right = calcRight(rect2);
+  const rect2Bottom = calcBottom(rect2);
+  return !(
+    rect1.left >= rect2Right
+    || rect1.top >= rect2Bottom
+    || rect1Right <= rect2.left
+    || rect1Bottom <= rect2.top
+  );
 }
 
 
@@ -277,8 +288,20 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const numbers = ccn.toString().split('').map((num) => +num);
+  let sum = 0;
+  let even = false;
+  for (let i = numbers.length - 1; i > -1; i -= 1) {
+    let num = numbers[i];
+    if (even) {
+      num *= 2;
+      if (num > 9) num -= 9;
+    }
+    even = !even;
+    sum += num;
+  }
+  return sum % 10 === 0;
 }
 
 /**
@@ -348,8 +371,17 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(number, n) {
+  let num = number;
+  let res = '';
+  if (num === 0) return '0';
+
+  while (num > 0) {
+    res = (num % n) + res;
+    num = Math.floor(num / n);
+  }
+
+  return res;
 }
 
 

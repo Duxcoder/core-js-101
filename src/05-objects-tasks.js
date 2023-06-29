@@ -112,6 +112,58 @@ function fromJSON(proto, json) {
  *
  *  For more examples see unit tests.
  */
+// class Builder {
+//   constructor() {
+//     this.selectors = [];
+//   }
+
+//   element(value) {
+//     this.selectors.push(value);
+//     return this;
+//   }
+
+//   id(value) {
+//     this.selectors.push(`#${value}`);
+//     return this;
+//   }
+
+//   class(value) {
+//     this.selectors.push(`.${value}`);
+//     return this;
+//   }
+
+//   attr(value) {
+//     this.selectors.push(`[${value}]`);
+//     return this;
+//   }
+
+//   pseudoClass(value) {
+//     this.selectors.push(`:${value}`);
+//     return this;
+//   }
+
+//   pseudoElement(value) {
+//     this.selectors.push(`::${value}`);
+//     return this;
+//   }
+
+//   combine(selector1, combinator, selector2) {
+//     const a = selector1.stringify();
+//     const b = this.element(combinator).stringify();
+//     const c = selector2.stringify();
+//     const combinedSelector = a + b + c;
+//     this.selectors.push(combinedSelector);
+//     return this;
+//   }
+
+//   stringify(elem = false) {
+//     if (elem) this.selectors.push(elem);
+//     const res = this.selectors.join('');
+//     this.selectors = [];
+//     return res;
+//   }
+// }
+// const cssSelectorBuilder = () => { throw new Error('Not implemented'); };
 
 const cssSelectorBuilder = {
   element(/* value */) {
@@ -142,7 +194,6 @@ const cssSelectorBuilder = {
     throw new Error('Not implemented');
   },
 };
-
 
 module.exports = {
   Rectangle,
