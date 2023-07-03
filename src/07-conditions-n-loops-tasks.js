@@ -397,32 +397,15 @@ function toNaryString(number, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
-  // let sliceIndex;
-  // const pathesArrs = pathes.map((path) => path.split('/'));
-  // const prevObj = { value: pathesArrs[0][0] };
-  // for (let i = 0; i < pathesArrs[0].length; i += 1) {
-  //   // eslint-disable-next-line no-loop-func
-  //   pathesArrs.reduce((prev, item, k) => {
-  //     if (k !== 0) {
-  //       for (let j = 0; j < item.length; j += 1) {
-  //         if (prev.value !== item[j]) {
-  //           sliceIndex = k + 1;
-  //         }
-  //       }
-  //       // eslint-disable-next-line no-param-reassign
-  //       prev.value = item[i];
-  //     }
-  //     return prev;
-  //   }, prevObj);
-  // }
-  // return sliceIndex
-  //   ? `${pathesArrs[0].slice(0, sliceIndex + 1).join('/')}/`
-  //   : '';
+function getCommonDirectoryPath(pathes) {
+  const arrPathes = pathes.map((path) => path.split('/'));
+  let res = '';
+  for (let i = 0; i < Math.max(...arrPathes.map((path) => path.length)); i += 1) {
+    const add = arrPathes.every((path) => path[i] === arrPathes[0][i]);
+    res = add ? `${res + arrPathes[0][i]}/` : res;
+  }
+  return res;
 }
-
-
 /**
  * Returns the product of two specified matrixes.
  * See details: https://en.wikipedia.org/wiki/Matrix_multiplication
